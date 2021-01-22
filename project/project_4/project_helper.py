@@ -15,7 +15,8 @@ class PricingLoader(object):
     def __init__(self, bundle_data):
         self.loader = USEquityPricingLoader(
             bundle_data.equity_daily_bar_reader,
-            bundle_data.adjustment_reader)
+            bundle_data.adjustment_reader,
+            None)
 
     def get_loader(self, column):
         if column not in USEquityPricing.columns:
@@ -30,7 +31,7 @@ class Sector(Classifier):
     missing_value = -1
 
     def __init__(self):
-        self.data = np.load('../../data/project_4_sector/data.npy')
+        self.data = np.load('project_4_sector/data.npy')
 
     def _compute(self, arrays, dates, assets, mask):
         return np.where(
@@ -45,7 +46,7 @@ def build_pipeline_engine(bundle_data, trading_calendar):
 
     engine = SimplePipelineEngine(
         get_loader=pricing_loader.get_loader,
-        calendar=trading_calendar.all_sessions,
+        #calendar=trading_calendar.all_sessions,
         asset_finder=bundle_data.asset_finder)
 
     return engine

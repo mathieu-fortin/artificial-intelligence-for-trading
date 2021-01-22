@@ -8,6 +8,7 @@ from sklearn.decomposition import PCA
 from zipline.data import bundles
 from zipline.pipeline import Pipeline
 from zipline.pipeline.factors import AverageDollarVolume
+from zipline.pipeline.domain import US_EQUITIES
 from zipline.utils.calendars import get_calendar
 
 import project_helper
@@ -253,7 +254,7 @@ def test_mean_reversion_5day_sector_neutral(fn):
     universe_window_length = 2
     universe_asset_count = 4
     universe = AverageDollarVolume(window_length=universe_window_length).top(universe_asset_count)
-    pipeline = Pipeline(screen=universe)
+    pipeline = Pipeline(screen=universe, domain=US_EQUITIES)
 
     run_pipeline_args = {
         'pipeline': pipeline,
@@ -304,7 +305,7 @@ def test_mean_reversion_5day_sector_neutral_smoothed(fn):
     universe_window_length = 2
     universe_asset_count = 4
     universe = AverageDollarVolume(window_length=universe_window_length).top(universe_asset_count)
-    pipeline = Pipeline(screen=universe)
+    pipeline = Pipeline(screen=universe, domain=US_EQUITIES)
 
     run_pipeline_args = {
         'pipeline': pipeline,
